@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<header>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</header>
+<body>
+	<div class="row">
+		<div class="col form-group">
+		<label for="genderFilter">Gender</label>
+		<select class="form-control" id="genderFilter">
+			<option value="">All</option>
+			<option value="male">Male</option>
+			<option value="female">Female</option>
+		</select>
+	</div>
+	<ul class="list-group" id="userList">
+		
+	</ul>
+</body>
+
+<script type="text/javascript">
+	var users = [
+	{ name: 'Nguyen Ngoc Ha', gender: 'female'},
+	{ name: 'Nguyen Ngoc Quan', gender: 'male'},
+	{ name: 'Nguyen Ngoc Van', gender: 'female'},
+	{ name: 'Nguyen Ngoc Hai', gender: 'male'},
+	{ name: 'Nguyen Ngoc Minh', gender: 'male'}
+];
+	var userList = $('#userList');
+	var genderFilter = $('#genderFilter');
+
+	render(userList,users);
+
+	genderFilter.on('change', function(){
+		var selectedGender =  this.value;
+		var filterdUsers =  users.filter(function(user){
+			if(selectedGender === ""){
+				return true;
+			}
+			return user.gender === selectedGender;
+		});
+		render(userList,filterdUsers);
+	});
+	function render(container, items){
+	var htmlItems = items.map(function(item){
+		return '<li class="list-group-item">' + item.name+'</li>'
+
+	});
+	var html = htmlItems.join('');
+	container.html(html);
+}
+
+</script>
+</html>
